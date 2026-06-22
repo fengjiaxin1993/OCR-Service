@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# IDE
+.idea/
+.vscode/
+
+# Poetry
+dist/
+poetry.lock
+
+# 项目数据
+tests/
+models/
+data/
+
+# 环境与缓存
+.venv/
+venv/
+.env
+*.egg-info/

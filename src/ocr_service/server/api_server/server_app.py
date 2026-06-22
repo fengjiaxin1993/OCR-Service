@@ -1,12 +1,8 @@
-import os
-
-import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
-
-from server.api_server.main_routes import ocr_router
-from server.ocr.ocr_service import startup_event
+from ocr_service.server.api_server.main_routes import ocr_router
+from ocr_service.server.ocr.ocr_service import startup_event
 
 
 def create_app():

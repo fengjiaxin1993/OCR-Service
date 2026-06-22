@@ -1,11 +1,8 @@
 import logging
 from typing import Dict, Any, List
-
-import cv2
-import numpy as np
 from rapid_doc import RapidDocOutput
 
-from server.ocr.ocr_helper import clean_html_tables_in_text
+from ocr_service.server.ocr.ocr_helper import clean_html_tables_in_text
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,15 +23,14 @@ def handle_rapidDocOutputs(outputs: List[RapidDocOutput]) -> Dict[str, Any]:
 
     final_markdown = clean_html_tables_in_text(total_markdown)
     structure_json_result = split_markdown(final_markdown)
-    # 先markdown 结构化信息
+
     layout_res_list = []
-    for idx, output in enumerate(outputs):
+    for page_idx, output in enumerate(outputs):
         middle_json = output.middle_json
         pdf_info_list = middle_json["pdf_info"]
         pdf_info = pdf_info_list[0]
         parsing_res_list = []
-        page_idx = pdf_info["page_idx"]
-        page_size = pdf_info["page_size"]  #[595,842]
+        page_size = pdf_info["page_size"]
         page_width = page_size[0]
         page_height = page_size[1]
         para_blocks = pdf_info["para_blocks"]
@@ -45,7 +41,6 @@ def handle_rapidDocOutputs(outputs: List[RapidDocOutput]) -> Dict[str, Any]:
                 spans = line.get("spans", [])
                 for span in spans:
                     bbox = span["bbox"]
-                    score = span["score"]
                     content = span["content"]
                     block_type = span["type"]
                     if block_type != "text":
@@ -76,19 +71,6 @@ def handle_rapidDocOutputs(outputs: List[RapidDocOutput]) -> Dict[str, Any]:
     }
     return res
 
-
-def images_to_bytes_list(images: List[np.ndarray]) -> List[bytes]:
-    """将 List[np.ndarray] 转换为 List[bytes]（PNG 格式）"""
-    bytes_list = []
-    for img in images:
-        # np.ndarray 是 RGB，cv2 需要 BGR
-        img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-        _, encoded = cv2.imencode(".png", img_bgr)
-        bytes_list.append(encoded.tobytes())
-    return bytes_list
-
-
-from typing import Dict, List, Any
 
 headers_to_split_on = [
     ("#", "title"),

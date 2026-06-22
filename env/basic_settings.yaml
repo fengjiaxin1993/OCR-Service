@@ -1,0 +1,39 @@
+
+# OCR 最多并行两个
+MAX_OCR_CONCURRENT_NUM: 2
+
+# OCR 使用的 DPI（控制 OCR 精度和速度），值越大越耗内存/显存，如遇到 OOM 错误请降低此值
+PDF_DPI: 200
+
+# rapid_doc 检测模型路径
+RAPID_DOC_DET_MODEL_PATH: 
+  D:\github\OCR-Service\env\models\rapid_doc\ch_PP-OCRv5_mobile_det.onnx
+
+# rapid_doc 识别模型路径
+RAPID_DOC_REC_MODEL_PATH: 
+  D:\github\OCR-Service\env\models\rapid_doc\ch_PP-OCRv4_rec_mobile.onnx
+
+# rapid_doc 识别模型路径
+RAPID_DOC_CLS_MODEL_PATH: 
+  D:\github\OCR-Service\env\models\rapid_doc\ch_ppocr_mobile_v2.0_cls_mobile.onnx
+
+# 布局模型路径
+RAPID_DOC_LAYOUT_MODEL_PATH: 
+  D:\github\OCR-Service\env\models\rapid_doc\pp_doclayoutv2.onnx
+
+# 表格识别路径
+RAPID_DOC_PADDLE_CLS_MODEL_PATH: 
+  D:\github\OCR-Service\env\models\rapid_doc\paddle_cls.onnx
+
+# 表格识别路径
+RAPID_DOC_UNET_MODEL_PATH: D:\github\OCR-Service\env\models\rapid_doc\unet.onnx
+
+# 表格识别路径
+RAPID_DOC_SLANET_MODEL_PATH: 
+  D:\github\OCR-Service\env\models\rapid_doc\slanet-plus.onnx
+DEFAULT_BIND_HOST: 127.0.0.1
+
+# API 服务器地址
+API_SERVER:
+  host: 127.0.0.1
+  port: 7840

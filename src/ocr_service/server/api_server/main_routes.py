@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from server.ocr.ocr_service import health_check, pdf2info
+from ocr_service.server.ocr.ocr_service import health_check, pdf2info
 
 ocr_router = APIRouter(prefix="/api", tags=["OCR文件识别"])
 
